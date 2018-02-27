@@ -1,6 +1,7 @@
 <html>
 
 <head>
+      <title>Bomb Weeper</title>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
       <script src="main.js"></script>
       <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
@@ -12,7 +13,7 @@
             BOMB WEEPER
       </p>
       <p id="prompt" ng-style="{ color: c.prompt.color }">
-            {{ c.prompt.text }}
+            {{ c.prompt.text || '&nbsp;' }}
       </p>
       <table>
             <tbody>
@@ -32,11 +33,15 @@
             <span>Time: {{ c.time }}</span>
       </div>
 
-      <div>
+      <div id="buttons">
             Size:
             <input type="number" ng-model="c.size" /> Timeout:
             <input type="number" ng-model="c.timeout" />
             <button autofocus ng-click="c.createMap()">RECREATE</button>
+      </div>
+
+      <div id="guide">
+            Find a row / column without any bombs on it and click on any piece of ground on it, before your time runs out.
       </div>
 </body>
 

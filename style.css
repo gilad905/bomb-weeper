@@ -46,3 +46,8 @@ td {
 input {
    width: 60px;
 }
+
+#buttons,
+#guide {
+   margin: 50px;
+}
