@@ -1,0 +1,15 @@
+each turn has a timeout. if didn't make it in time: start over.
+a counter for current level.
+a counter for points (reveal only when needed).
+
+level 1:
+each turn:
+   random matrix of bombs with one empty row / column.
+   clicking on the empty: next turn.
+
+level 2:
+each turn:
+   random matrix of bombs + prises, where only one row / column is empty
+   + only one row / column has only 1 prise in it.
+   clicking on the empty: next turn.
+   clicking on the prise (line): 1 point, next turn.

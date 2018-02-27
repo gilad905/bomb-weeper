@@ -1,0 +1,43 @@
+<html>
+
+<head>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+      <script src="main.js"></script>
+      <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+      <link rel="stylesheet" href="style.css" />
+</head>
+
+<body ng-app="myApp" ng-controller="appCtrl as c" ng-cloak>
+      <p id="title">
+            BOMB WEEPER
+      </p>
+      <p id="prompt" ng-style="{ color: c.prompt.color }">
+            {{ c.prompt.text }}
+      </p>
+      <table>
+            <tbody>
+                  <tr ng-repeat="row in c.map track by $index">
+                        <td ng-repeat="cell in row track by $index" ng-click="c.cellClicked(row, $index)">
+                              <div class="cell" ng-show="cell == 1">
+                                    <i class="fas fa-bomb"></i>
+                              </div>
+                        </td>
+                  </tr>
+            </tbody>
+      </table>
+
+      <div id="dashboard">
+            <span>World: {{ c.world }}</span>
+            <span>Points: {{ c.points }}</span>
+            <span>Time: {{ c.time }}</span>
+      </div>
+
+      <div>
+            Size:
+            <input type="number" ng-model="c.size" /> Timeout:
+            <input type="number" ng-model="c.timeout" />
+            <button autofocus ng-click="c.createMap()">RECREATE</button>
+      </div>
+</body>
+
+</html>

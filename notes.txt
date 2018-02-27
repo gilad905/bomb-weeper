@@ -1,0 +1,5 @@
+one element
+animation-count: 2
+css: paused;
+animationend: paused;
+prompt(): running;
