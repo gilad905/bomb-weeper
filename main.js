@@ -5,7 +5,7 @@ angular.module('myApp', []).controller('appCtrl', function($scope, $interval) {
 
    c.MIN_SIZE = 2;
    c.MAX_SIZE = 20;
-   c.LEVELS_PER_SIZE = 5;
+   c.LEVELS_PER_SIZE = 10;
 
    c.map = null;
    c.size = null;
@@ -13,22 +13,30 @@ angular.module('myApp', []).controller('appCtrl', function($scope, $interval) {
    c.level = null;
    c.points = null;
    c.prompt = {};
-   c.timeout = 6;
+   c.timeout = 5;
    c.time = null;
+   c.isLost = null;
 
    var isRow;
    var emptyI;
    var timer;
    const FLASH_ANIM = [{
       opacity: 0,
+      top: 0,
+      fontSize: "30px",
    }, {
       opacity: 1,
+      top: "5px",
+      fontSize: "32px",
    }, {
       opacity: 0,
+      top: "10px",
+      fontSize: "34px",
    }];
 
    c.cellClicked = function(row, colI) {
-      isExplosive(row, colI) ? lose() : win();
+      if (!c.isLost)
+         isExplosive(row, colI) ? lose() : win();
    }
 
    c.createMap = function() {
@@ -52,8 +60,12 @@ angular.module('myApp', []).controller('appCtrl', function($scope, $interval) {
       }
    };
 
+   c.restartGame = function() {
+      initEnv();
+      startLevel();
+   }
+
    function win() {
-      // prompt("YOU WIN", "green");
       c.level++;
       c.points++;
       if (c.level == c.LEVELS_PER_SIZE) {
@@ -64,15 +76,19 @@ angular.module('myApp', []).controller('appCtrl', function($scope, $interval) {
             c.world++;
          }
       }
+      startLevel();
+   }
+
+   function startLevel() {
       cancelTimer();
-      startTimer();
       c.createMap();
+      startTimer();
    }
 
    function lose() {
       cancelTimer();
       prompt("KABOOM!", "red");
-      restartGame();
+      c.isLost = true;
    }
 
    function startTimer() {
@@ -90,26 +106,21 @@ angular.module('myApp', []).controller('appCtrl', function($scope, $interval) {
          lose();
    }
 
-   function restartGame() {
-      initEnv();
-      c.createMap();
-   }
-
    function initEnv() {
       c.size = c.MIN_SIZE;
       c.world = 1;
       c.level = 1;
       c.points = 0;
-      startTimer();
+      c.isLost = false;
    }
 
-   function prompt(text, color, duration = 2) {
+   function prompt(text, color) {
       c.prompt = {
          text: text,
          color: color,
       };
       document.getElementById("prompt").animate(FLASH_ANIM, {
-         duration: duration * 1000,
+         duration: 1000,
       });
    }
 
@@ -142,7 +153,6 @@ angular.module('myApp', []).controller('appCtrl', function($scope, $interval) {
          temporaryValue, randomIndex;
 
       while (0 !== currentIndex) {
-
          randomIndex = Math.floor(Math.random() * currentIndex);
          currentIndex -= 1;
 
@@ -154,5 +164,5 @@ angular.module('myApp', []).controller('appCtrl', function($scope, $interval) {
       return array;
    }
 
-   restartGame();
+   c.restartGame();
 });

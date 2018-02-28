@@ -12,14 +12,16 @@
       <p id="title">
             BOMB WEEPER
       </p>
-      <p id="prompt" ng-style="{ color: c.prompt.color }">
-            {{ c.prompt.text || '&nbsp;' }}
-      </p>
+      <div id="prompt-wrap">
+            <p id="prompt" ng-style="{ color: c.prompt.color }">
+                  {{ c.prompt.text || '&nbsp;' }}
+            </p>
+      </div>
       <table>
             <tbody>
                   <tr ng-repeat="row in c.map track by $index">
-                        <td ng-repeat="cell in row track by $index" ng-click="c.cellClicked(row, $index)">
-                              <div class="cell" ng-show="cell == 1">
+                        <td ng-repeat="cell in row track by $index" ng-click="c.cellClicked(row, $index)" ng-class="{ lost: c.isLost }">
+                              <div ng-show="cell == 1">
                                     <i class="fas fa-bomb"></i>
                               </div>
                         </td>
@@ -28,16 +30,18 @@
       </table>
 
       <div id="dashboard">
+            <button autofocus ng-click="c.restartGame()">RESTART</button>
             <span>World: {{ c.world }}</span>
             <span>Points: {{ c.points }}</span>
             <span>Time: {{ c.time }}</span>
       </div>
 
-      <div id="buttons">
+
+      <div id="debug">
             Size:
             <input type="number" ng-model="c.size" /> Timeout:
             <input type="number" ng-model="c.timeout" />
-            <button autofocus ng-click="c.createMap()">RECREATE</button>
+            <button ng-click="c.createMap()">RECREATE</button>
       </div>
 
       <div id="guide">

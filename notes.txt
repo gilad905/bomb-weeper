@@ -1,5 +1,7 @@
-one element
-animation-count: 2
-css: paused;
-animationend: paused;
-prompt(): running;
+line animation(s) on cell click
+bombs:
+   fade in on new level
+   fade out on win
+   show line + explode on lose
+don't color empty line on lose
+more worlds: prizes, less time

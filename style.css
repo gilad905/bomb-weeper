@@ -14,8 +14,16 @@ p {
    color: darkgreen;
 }
 
+#prompt-wrap {
+   height: 30px;
+   display: flex;
+   justify-content: center;
+}
+
 #prompt {
+   position: absolute;
    opacity: 0;
+   transform: translateY(100%);
 }
 
 table {
@@ -32,9 +40,13 @@ td {
    border-radius: 5px;
    background-color: darkgoldenrod;
    text-align: center;
+   transition: .5s background-color;
+   cursor: pointer;
 }
 
-.cell {}
+td.lost {
+   background-color: red;
+}
 
 #dashboard {
    margin: 10px;
@@ -47,7 +59,12 @@ input {
    width: 60px;
 }
 
-#buttons,
+#dashboard,
+#debug,
 #guide {
    margin: 50px;
+}
+
+#debug {
+   display: none;
 }
